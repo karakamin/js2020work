@@ -79,7 +79,7 @@
     <pagination :pages="pagination" @prod-pages="getProducts"></pagination>
 
     <!-- Modal元件 -->
-    <product-modal ref="productModel" :status="status" :user="user" @update="getProducts">
+    <product-modal ref="productModel" :status="status" :create="create" :user="user" @update="getProducts">
     </product-modal>
 
     <!-- 刪除元件 -->

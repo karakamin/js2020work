@@ -10,7 +10,7 @@ new Vue({
       tempProduct: {
         imageUrl: [],
       },
-      isNew: false,
+      create: false,
       status: {
         fileUploading: false,
       },
@@ -48,13 +48,13 @@ new Vue({
           });
       },
       // 點選新增產品、編輯、刪除時開啟 Modal 視窗
-      openModal(isNew, item) {
-        switch (isNew) {
+      openModal(create, item) {
+        switch (create) {
           case "new":
             this.tempProduct = {
               imageUrl: [],
             };
-            this.isNew = true;
+            this.create = true;
             $("#productModal").modal("show");  //使 id = productModal 打開
             break;
           case "edit":
@@ -63,7 +63,7 @@ new Vue({
             // 使用 refs 觸發子元件方法
             // console.log(this);
             this.$refs.productModel.getDetail(this.tempProduct.id);
-            this.isNew = false;
+            this.create = false;
             break;
           case "delete":
             this.tempProduct = Object.assign({}, item);

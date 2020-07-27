@@ -97,7 +97,7 @@ Vue.component('productModal', {
       },
     };
   },
-  props: ['isNew', 'status', 'user'],
+  props: ['create', 'status', 'user'],
   methods: {
     getDetail(id) {
       const api = `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product/${id}`;
@@ -114,9 +114,9 @@ Vue.component('productModal', {
       // 新增商品
       let api = `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product`;
       let httpMethod = 'post';
-      // 判斷 isNew，只有新增資料時，isNew 會給 true，以下判斷不會成立
-      if (!this.isNew) {
-        // console.log(this.isNew);
+      // console.log(this.create);
+      // 判斷 create 會給 true，以下判斷不會成立
+      if (!this.create) {
         api = `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product/${this.tempProduct.id}`;
         httpMethod = 'patch';
       }
