@@ -6,7 +6,7 @@ new Vue({
       products: [],
       pagination: {},
       //productsNo:[],
-      loadingBtn: "",
+      // loadingBtn: "",
       tempProduct: {
         imageUrl: [],
       },
@@ -15,8 +15,6 @@ new Vue({
         fileUploading: false,
       },
       user: {
-        email: "",
-        password: "",
         token: "",
         uuid: "fb885474-3b59-4203-aa95-b9bec4ed4e4c",
       },
@@ -32,26 +30,7 @@ new Vue({
       this.getProducts();
     },
     methods: {
-      //登入
-      signin() {
-        //物件函式縮寫，原寫法為 singin : function(){ xxx }
-        const api = `https://course-ec-api.hexschool.io/api/auth/login`; // 將完整驗證登入的路徑賦值給 api
-        axios.post(api, this.user).then((response) => {
-            const token = response.data.token; //取得token
-            const expired = response.data.expired; //取得token有效時間
-            // 寫入 cookie token
-            // expires 設置有效時間
-            document.cookie = `token=${token};expires=${new Date(expired * 1000)}; path=/`;
-            alert("登入成功！");
-            window.location = "productsEX.html"; //成功後跳轉頁面
-          })
-          .catch((error) => {
-            alert("驗證異常");
-            //console.log(this.user);
-            console.log(error.response.data.errors);
-          });
-      },
-      // 取得產品清單資料
+       // 取得產品清單資料
       getProducts(page = 1) {
         const api = `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/products?page=${page}`;
         //預設帶入 token
