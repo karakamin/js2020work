@@ -27,7 +27,7 @@ new Vue({
       this.user.token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
       // 若無法取得 token 則返回 Login 頁面
       if (this.user.token === "") {
-        window.location = "Login.html";
+        window.location = "backindex.html";
       }
       this.getProducts();
     },
