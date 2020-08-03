@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表單驗證</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<style>
+    body{
+        font-family: '微軟正黑體';
+    }
+    label{
+        font-weight: bolder;
+    }
+    .container{
+        margin: 0 auto;
+        width: 900px;
+    }
+</style>
+<body>
+    <div id="app" class="container">
+        
+        <!-- 表單區塊 -->
+        <div class="my-5 row justify-content-center">
+            <validation-observer v-slot="{ invalid }" class="col-md-6">
+                <form @submit.prevent="submitForm">
+                    <div class="form-group">
+                        <validation-provider rules="required" v-slot="{ errors, classes }">
+                            <!-- 輸入框 -->
+                            <label for="username">收件人姓名</label>
+                            <input id="username" type="text" name="收件人姓名" v-model="form.name"
+                                class="form-control" :class="classes" placeholder="必填，請填寫收件人姓名">
+                            <!-- 錯誤訊息 -->
+                            <span v-if="errors[0]" class="text-danger">{{ errors[0] }}</span>
+                        </validation-provider>
+                    </div>
+                    <div class="form-group">
+                        <validation-provider v-slot="{ errors, classes }" rules="required">
+                          <label for="email">E-mail</label>
+                          <input id="email" type="email" name="E-mail" v-model="form.email" 
+                                class="form-control" :class="classes" placeholder="必填，請填寫 E-mail">
+                          <span v-if="errors[0]" class="text-danger">{{ errors[0] }}</span>
+                        </validation-provider>
+                    </div>
+                    <div class="form-group">
+                        <validation-provider  v-slot="{ errors, classes }" rules="required|min:8">
+                            <label for="tel">電話</label>
+                            <input id="tel" type="tel" name="電話" v-model="form.tel"
+                                class="form-control" :class="classes" placeholder="必填，請輸入電話">
+                            <span v-if="errors[0]" class="text-danger">{{ errors[0] }}</span>
+                        </validation-provider>
+                    </div>
+                    <div class="form-group">
+                        <validation-provider v-slot="{ errors, classes }" rules="required">
+                            <label for="address">地址</label>
+                            <input id="address"  type="text" name="地址" v-model="form.address"
+                                class="form-control" :class="classes" placeholder="必填，請輸入地址">
+                            <span v-if="errors[0]" class="text-danger">{{ errors[0] }}</span>
+                        </validation-provider>
+                    </div>
+                    <div class="form-group">
+                        <validation-provider v-slot="{ errors, classes }" rules="required">
+                        <label for="message">付款方式</label>
+                        <select v-model="form.payment" class="form-control" name="付款方式">
+                            <option value="" disabled>請選擇付款方式</option>
+                            <option value="WebATM">線上 ATM</option>
+                            <option value="ATM">ATM</option>
+                            <option value="CVS">便利商店</option>
+                            <option value="Barcode">Barcode</option>
+                            <option value="Credit">信用卡刷卡</option>
+                            <option value="ApplePay">ApplePay</option>
+                            <option value="GooglePay">GooglePay</option>
+                        </select>
+                             <span v-if="errors[0]" class="text-danger">{{ errors[0] }}</span>
+                        </validation-provider>
+                    </div>
+                    <div class="form-group">
+                        <validation-provider v-slot="{ errors, classes }" rules="max:100">
+                            <label for="message">留言</label>
+                            <textarea id="message" v-model="form.message" class="form-control" name="留言"
+                            cols="30" rows="3"  :class="classes" placeholder="可輸入 100 字元以內">
+                            </textarea>
+                            <span v-if="errors[0]" class="text-danger">{{ errors[0] }}</span>
+                        </validation-provider>  
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-success" :disabled="invalid">送出表單</button>
+                    </div>                        
+                </form>
+            </validation-observer>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- 表單套件 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/3.3.0/vee-validate.full.min.js"></script>
+
+    <!-- 必須使用 type="module" 才能夠使用 import -->
+    <script type="module" src="all.js"></script>
+
+</body>
+</html>
